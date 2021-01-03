@@ -1,9 +1,18 @@
+/*
+  If you remove all sample cards and would want to reinsert them back:
+  in the local storage container of you browser choose this app's url
+  find newsfeed property, then delete it.
+  App will reinsert sample data on reload
+*/
+
+// Sample users data
 const fill_users = [
   { username: 'rus', password: 'asdf' },
   { username: 'tom', password: 'asdf' },
   { username: 'sam', password: 'asdf' },
 ]
 
+// Sample newsfeed data
 const fill_newsfeed = [
   {
     username: 'rus',
@@ -45,5 +54,6 @@ const writeNreadFromLocalstorage = (name, list) => {
   return readFromLocalstorage(name)
 }
 
+// Load database data to cache arrays. Insert sample data to database if no data present
 let users = readFromLocalstorage('users') || writeNreadFromLocalstorage('users', fill_users)
 let newsfeed = readFromLocalstorage('newsfeed') || writeNreadFromLocalstorage('newsfeed', fill_newsfeed)

@@ -89,54 +89,16 @@ function loginUser() {
   const foundUser = users.find(user => username.value === user.username)
   if (foundUser && password.value === foundUser.password) {
     showPage();
-    pageSection.innerHTML = `
-      <div class="heading">
-        <h2>Welcome to your Dashboard, ${foundUser.username.toUpperCase()}</h2>
-      </div>
-      <div class="card blog-form">
-        <form action="" id="add-blog">
-          <input type="text" id="img-url" placeholder="image url..."><br>
-          <textarea name="" id="blog-text" cols="30" rows="10" placeholder="your blog..."></textarea><br>
-          <a href="#" id="submit-blog" class="button btn-submit">Submit</a>
-          <span class="warning submit-msg"></span>
-        </form>
-      </div>
-    `
-    const blogForm = document.querySelector('.blog-form')
-    const submitBtn = document.querySelector('#submit-blog')
-    const imgUrl = document.querySelector('#img-url')
-    const blogText = document.querySelector('#blog-text')
-    const submitMsg = document.querySelector('.submit-msg')
-
-    newsfeed.sort((a, b) => b.date - a.date)
+    insertBlogComponent(foundUser)
+    newsfeed.sort((a, b) => b.date - a.date)    // sort blogs by date in descending order
+    // Add blog cards of a login user
     newsfeed.forEach(feed => {
       if (feed.username === foundUser.username){
-        pageSection.appendChild(blogCardComponent(feed))
+        const card = blogCardComponent(feed)
+        card.querySelector('.delete-btn').style.display = 'flex'
+        pageSection.appendChild(card)
       }
     })
-
-    submitBtn.addEventListener('click', () => {
-      if (!(blogText.value.length > 1)) {
-        return submitMsg.innerHTML = ' * Cannot submit an empty blog...'
-      }
-      
-      submitMsg.innerHTML = ''
-      const newBlog = {
-        username: foundUser.username,
-        date: Date.now(),
-        img: imgUrl.value,
-        timeline: blogText.value,
-      }
-      newsfeed.push(newBlog)
-      writeToLocalstorage('newsfeed', newsfeed)
-
-      imgUrl.value = ''
-      blogText.value = ''
-
-      // Insert a new blog
-      blogForm.after(blogCardComponent(newBlog))
-    })
-
   } else {
     username.value = ''
     password.value = ''
@@ -146,22 +108,23 @@ function loginUser() {
 function registerUser() {
   const username = document.querySelector('#reg-username')
   const password = document.querySelector('#reg-password')
+
+  // Check if username exists
   const foundUser = users.find(user => username.value === user.username)
   if (!foundUser) {
+    // if username and password contain at least 3 chars, then create a user
     if (username.value.length > 2 && password.value.length > 2) {
       const newUser = {
         username: username.value,
         password: password.value,
       }
+      // Add user to array to local storage
       users.push(newUser)
       writeToLocalstorage('users', users)
 
+      // unhide page section
       showPage();
-      pageSection.innerHTML = `
-      <div class="heading">
-        <h2>Welcome to your Dashboard, ${username.value.toUpperCase()}</h2>
-      </div>
-      `
+      insertBlogComponent(newUser)
     } else {
       showRegister()
       regSection.innerHTML = ``
@@ -170,6 +133,7 @@ function registerUser() {
         <p class="warning">* Username and Password must be 3 or more characters</p>
       </div>
       `
+      // Back to main screen after n milliseconds
       setTimeout(() => { window.location.href = "index.html"; }, 3000)
     }
   } else {
@@ -183,11 +147,17 @@ function registerUser() {
   }
 }
 
-// function deleteBlog() {
-//   console.log('blog deleted')
-// }
+// Remove a blog from local storage
+function removeBlogFromDb(element) {
+  const blogs = readFromLocalstorage('newsfeed')
+  const index = blogs.findIndex(blog => blog.date === element)
+  blogs.splice(index, 1)
+  writeToLocalstorage('newsfeed', blogs)
+}
 
-// Components
+/*   COMPONENTS   */
+
+// Blog card component
 function blogCardComponent(feed) {
   const card = document.createElement('div')
   card.className = 'card'
@@ -202,10 +172,69 @@ function blogCardComponent(feed) {
       <p>${feed.timeline.substring(0, 500)}</p>
     </div>
   `
+
+  // Delete icon of card element
   const deleteBtn = card.querySelector('.delete-btn')
   deleteBtn.addEventListener('click', () => {
-    card.style.transform = 'translateX(-3rem)'
-    // card.remove()
+    // move card offscreen
+    card.style.transform = 'translateX(-200%)'
+    // remove card element from DOM
+    card.addEventListener('transitionend', () => card.remove())
+    // remove card record from database
+    removeBlogFromDb(feed.date)
   })
   return card
+}
+
+// Insert and display a blog component
+function insertBlogComponent(user) {
+  pageSection.innerHTML = `
+    <div class="heading">
+      <h2>Welcome to your Dashboard, ${user.username.toUpperCase()}</h2>
+    </div>
+    <div class="card blog-form">
+      <form action="" id="add-blog">
+        <input type="text" id="img-url" placeholder="image url..."><br>
+        <textarea name="" id="blog-text" cols="30" rows="10" placeholder="your blog..."></textarea><br>
+        <a href="#" id="submit-blog" class="button btn-submit">Submit</a>
+        <span class="warning submit-msg"></span>
+      </form>
+    </div>
+  `
+  // Form elements variables
+  const blogForm = document.querySelector('.blog-form')
+  const submitBtn = document.querySelector('#submit-blog')
+  const imgUrl = document.querySelector('#img-url')
+  const blogText = document.querySelector('#blog-text')
+  const submitMsg = document.querySelector('.submit-msg')
+
+  // Add blog
+  submitBtn.addEventListener('click', () => {
+    // Display error if blog is empty on submit
+    if (!(blogText.value.length > 1)) {
+      return submitMsg.innerHTML = ' * Cannot submit an empty blog...'
+    }
+    
+    // Clear error message
+    submitMsg.innerHTML = ''
+    // Create a new blog
+    const newBlog = {
+      username: user.username,
+      date: Date.now(),
+      img: imgUrl.value,
+      timeline: blogText.value,
+    }
+    // Add blog to array
+    newsfeed.push(newBlog)
+    // Add array to local storage
+    writeToLocalstorage('newsfeed', newsfeed)
+
+    imgUrl.value = ''
+    blogText.value = ''
+
+    // Insert a new blog card
+    const card = blogCardComponent(newBlog)
+    card.querySelector('.delete-btn').style.display = 'flex'
+    blogForm.after(card)
+  })
 }
