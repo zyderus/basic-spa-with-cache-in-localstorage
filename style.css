@@ -1,0 +1,286 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  min-width: 320px;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-color: #222;
+  background-image: url('bg.svg');
+  background-position: top;
+  background-repeat: repeat-y;
+  background-size: cover;
+  color: #222;
+  position: relative;
+}
+body::after {
+  content: "";
+  position: fixed;
+  height: 100%;
+  left: 0; right: 0;
+  top: 0; bottom: 0;
+  background: rgba(0,0,0,.1);
+  z-index: -1;
+}
+
+.content-container {
+  flex: 1 0 auto;
+}
+.footer {
+  flex-shrink: 0;
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid rgba(250, 250, 250, .4);
+  width: 95%;
+  margin: 0 auto;
+}
+
+#logout-btn {
+  display: none;
+}
+
+.wrapper {
+  max-width: 1140px;
+  padding: 0 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header {
+  background: rgb(132,235,255);
+  background: linear-gradient(38deg, rgba(132,235,255,0.7) 0%, rgba(214,238,209,.8) 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.site-header {
+  position: relative;
+}
+
+.site-header__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: .3rem;
+  padding-bottom: .3rem; 
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+a {
+  font-size: 1rem;
+}
+
+.site-header__middle {
+  margin-left: auto;
+}
+
+.nav__wrapper {
+  list-style: none;
+  display: flex;
+}
+
+.nav__item a {
+  display: block;
+  padding: 1rem; 
+}
+
+.nav__item:last-child {
+  padding-right: 1rem;
+}
+
+.nav__toggle {
+  display: none; 
+}
+
+#mag {
+  font-weight: 300;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+.site-header__middle a:hover {
+  text-decoration: underline;
+}
+
+.site-header__end {
+  white-space: nowrap;
+}
+
+.button {
+  color: #eee;
+  background-color: #2fa0f6;
+  min-width: 120px;
+  padding: .5rem 2rem;
+  border-radius: 50px;
+  text-align: center;
+}
+.button:hover {
+  background-color: #006ec2;
+}
+
+.button:last-child {
+  background-color: transparent;
+  border: 1px solid #2fa0f6;
+  color: #222;
+}
+.button:last-child:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.button--icon {
+  min-width: initial;
+  padding: 0.5rem;
+}
+
+section {
+  display: none;
+}
+
+input {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 500px) {
+  .site-header__middle {
+    display: none;
+  }
+  .brand {
+    display: none;
+  }
+  .site-header__wrapper {
+    justify-content: center;
+  }
+  .site-header__end {
+    padding: .5rem;
+  }
+  .site-header__end .button {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .pic-container {
+    display: none;
+  }
+}
+
+.card {
+  width: 90%;
+  max-width: calc(1140px * .8);
+  max-height: 350px;
+  margin: 0 auto;
+  margin-top: 2rem;
+  border-radius: 25px;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(.5rem);
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12),
+  -1px -1px 2px #aaa, 1px 1px 2px #555;
+  animation: 1s cubic-bezier(0.16, 1, 0.3, 1) cardEnter;
+}
+
+.pic-container {
+  width: 30%;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  width: 500px;
+  min-height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.pic-container img {
+  height: 100%;
+}
+
+.card .content {
+  padding: 1rem;
+}
+
+.card-auth {
+  width: 320px;
+  min-height: 300px;
+  position: relative;
+}
+
+.auth-title {
+  transform: translate(2rem, -1.7rem);
+  font-size: 1.8rem;
+  font-weight: 500;
+  border-radius: 10px;
+  position: absolute;
+  color: white;
+  width: auto;
+  padding: .2rem .7rem;
+  background-color: #333;
+}
+
+.card-auth form {
+  padding-top: 3rem;
+  margin: 0 auto;
+}
+
+.card-auth button {
+  font-size: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.card-auth input {
+  border: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  background-color: #eee;
+}
+.card-auth input:focus {
+  outline: none;
+  background-color: #fff;
+}
+
+.date-span {
+  font-size: .8rem;
+  color: #ccc;
+  background-color: #333;
+  padding: .2rem .4rem;
+  border-radius: 2px;
+}
+
+footer {
+  background-color: #232F3E;
+  color: #ccc;
+  text-align: center;
+  font-size: .8rem;
+}
+
+@keyframes cardEnter {
+  from { 
+    transform: translateY(100vh);
+    opacity: 0.1;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

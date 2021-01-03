@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="content-container">
+    <header class="site-header">
+      <div class="wrapper site-header__wrapper">
+        <div class="site-header__start">
+          <a href="/" class="brand">Mug<span id="mag">Puke</span></a>
+        </div>
+  
+        <div class="site-header__middle">
+          <nav class="nav">
+            <ul class="nav__wrapper">
+              <li class="nav__item"><a href="#">Contacts</a></li>
+            </ul>
+          </nav>
+        </div>
+        
+        <div class="site-header__end">
+          <a id="logout-btn" class="button" href="index.html">Logout</a>
+          <a id="signin-btn" class="button" href="#">Sign in</a>
+          <a id="register-btn" class="button" href="#">Register</a>
+        </div>
+      </div>
+    </header>
+  
+    <section id="feed"></section>
+  
+    <section id="register">
+      <div class="card card-auth">
+        <div class="auth-title">Register</div>
+  
+        <form action="" id="reg-form">
+          <label for="reg-username">Username</label><br>
+          <input type="text" id="reg-username"><br>
+          <label for="reg-password">Password</label><br>
+          <input type="password" id="reg-password"><br>
+          <button class="button">Register</button>
+        </form>
+      </div>
+    </section>
+  
+    <section id="login">
+      <div class="card card-auth">
+        <div class="auth-title">Login</div>
+  
+        <form action="" id="login-form">
+          <label for="login-username">Username</label><br>
+          <input type="text" id="login-username" autofocus><br>
+          <label for="login-password">Password</label><br>
+          <input type="password" id="login-password"><br>
+          <button class="button">Login</button>
+        </form>
+      </div>
+    </section>
+  
+    <section id="page"></section>
+    <br><br>
+  </div>
+
+  <footer class="footer">
+    <br><br><hr><br>
+    &copy; <span class="footer-date"></span> MugMag, Inc.
+    <br><br><br>
+  </footer>
+
+<script src="db.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
