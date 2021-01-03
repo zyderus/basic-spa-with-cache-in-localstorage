@@ -28,11 +28,19 @@ body::after {
   z-index: -1;
 }
 
+/* Flexbox setup for footer placing */
 .content-container {
   flex: 1 0 auto;
 }
 .footer {
   flex-shrink: 0;
+}
+
+.heading {
+  margin-top: 1rem;
+  color: #eee;
+  width: 100%;
+  text-align: center;
 }
 
 hr {
@@ -127,17 +135,22 @@ a {
   padding: .5rem 2rem;
   border-radius: 50px;
   text-align: center;
+  font-family: inherit;
+  outline: none !important;
 }
 .button:hover {
   background-color: #006ec2;
 }
+.button:focus {
+  outline: none;
+}
 
-.button:last-child {
+.btn-glass {
   background-color: transparent;
   border: 1px solid #2fa0f6;
   color: #222;
 }
-.button:last-child:hover {
+.btn-glass:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -265,6 +278,50 @@ input {
   background-color: #333;
   padding: .2rem .4rem;
   border-radius: 2px;
+}
+
+.warning {
+  padding: 2rem;
+  font-size: 1.3rem;
+  color: #490500;
+}
+
+/*  add blog form  */
+#add-blog {
+  width: 90%;
+  padding: 1rem;
+  margin: 0 auto;
+}
+#add-blog input,
+#add-blog textarea {
+  border: none;
+  padding: .5rem;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: .5rem;
+  font-family: inherit;
+  font-size: .8rem;
+}
+#add-blog input:focus,
+#add-blog textarea:focus {
+  outline: none;
+}
+
+.delete-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  font-size: 2rem;
+  font-weight: bold;
+  opacity: .3;
+  right: 0;
+  top: 0;
+  transform: translate(-1.5rem, 0.4rem);
+}
+.delete-btn:hover {
+  opacity: .7;
+  cursor: pointer;
 }
 
 footer {
