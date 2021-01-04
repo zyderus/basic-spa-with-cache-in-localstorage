@@ -120,6 +120,7 @@ a {
   text-decoration: none;
   color: #333;
 }
+
 .site-header__middle a:hover {
   text-decoration: underline;
 }
@@ -309,7 +310,6 @@ input {
 }
 
 .delete-btn {
-  /* display: flex; */
   display: none;
   justify-content: center;
   align-items: center;
@@ -327,6 +327,7 @@ input {
 }
 
 footer {
+  margin-top: 3rem;
   background-color: #232F3E;
   color: #ccc;
   text-align: center;
@@ -335,7 +336,7 @@ footer {
 
 @keyframes cardEnter {
   from { 
-    transform: translateY(100vh);
+    transform: translateY(50vh);
     opacity: 0.1;
   }
   to {
