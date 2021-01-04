@@ -10,10 +10,11 @@ body.appendChild(footer)
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', displayTimeline())
-window.addEventListener('scroll', () => {
-  const offset = window.pageYOffset
-  body.style.backgroundPositionY = offset * 0.2 + 'px'
-})
+// Add parallax to body background
+// window.addEventListener('scroll', () => {
+//   const offset = window.pageYOffset
+//   body.style.backgroundPositionY = offset * 0.3 + 'px'
+// })
 signinBtn.addEventListener('click', () => loginUser())
 registerBtn.addEventListener('click', () => registerUser())
 
