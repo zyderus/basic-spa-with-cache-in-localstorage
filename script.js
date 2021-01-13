@@ -266,7 +266,7 @@ function footerComponent() {
   footer.className = 'footer'
   footer.innerHTML = `
     <br><br><hr><br>
-    &copy; ${new Date().getFullYear()} MugMag, Inc.
+    &copy; ${new Date().getFullYear()} MugPuke, Inc.
     <br><br><br>
   `
   return footer
