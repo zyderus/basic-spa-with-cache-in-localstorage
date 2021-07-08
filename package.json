@@ -1,29 +1,29 @@
 {
-  "name": "basic-spa-with-auth",
+  "name": "basic-typescript-spa-auth",
   "version": "1.0.0",
-  "description": "Basic vanilla Javascript Single Page Application. All data store and queries are on the frontend.",
-  "main": "server.js",
+  "description": "",
+  "main": "server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "run-p tsc nodemon browsersync",
+    "tsc": "tsc -w",
+    "nodemon": "nodemon server.ts",
+    "browsersync": "sleep 3 && browser-sync start --proxy 'localhost:3500' --files '**/*.css, **/*.html, **/*.js' --no-ui --reload-delay=200",
+    "launch": "ts-node server.ts & tsc",
+    "test": ""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zyderus/basic-spa-with-data-in-localstorage.git"
-  },
-  "keywords": [
-    "basic",
-    "SPA",
-    "vanilla",
-    "js"
-  ],
-  "author": "zyderus",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zyderus/basic-spa-with-data-in-localstorage/issues"
-  },
-  "homepage": "https://github.com/zyderus/basic-spa-with-data-in-localstorage#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.0.1",
+    "express": "^4.17.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.27.4",
+    "nodemon": "^2.0.10",
+    "npm-run-all": "^4.1.5"
   }
 }
