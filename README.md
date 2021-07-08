@@ -17,7 +17,11 @@ todo
 - remove interfaces folder from transpiling
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 View the app [here](https://typescript-spa-auth-basic.herokuapp.com/)
 =======
 View the app [here](https://backend-in-frontend.herokuapp.com/)
 >>>>>>> 5c770f50b55f6edadbc2eccf65eccf9f558d5271
+=======
+View the app [here](https://typescript-spa-auth-basic.herokuapp.com/)
+>>>>>>> ad89dc281ec03bd4a9c1b6abc9abdc21eebaa8a5
