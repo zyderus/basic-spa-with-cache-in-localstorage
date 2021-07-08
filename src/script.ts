@@ -1,15 +1,15 @@
-const body = document.querySelector('body')
-const main = document.querySelector('#main')
-const signinBtn = document.querySelector('#signin-btn')
-const registerBtn = document.querySelector('#register-btn')
-const logoutBtn = document.querySelector('#logout-btn')
+import { Newsfeed } from './modules/interfaces.js'
+import { newsfeed, users, writeToLocalstorage, timeFormat } from './modules/functions.js'
 
-// Add footer
-const footer = footerComponent()
-body.appendChild(footer)
+const body = document.querySelector('body') as HTMLBodyElement
+const main = document.querySelector('#main') as HTMLDivElement
+const signinBtn = document.querySelector('#signin-btn') as HTMLButtonElement
+const registerBtn = document.querySelector('#register-btn') as HTMLButtonElement
+const logoutBtn = document.querySelector('#logout-btn') as HTMLButtonElement
 
-// Event Listeners
-document.addEventListener('DOMContentLoaded', displayTimeline())
+/* Event Listeners */
+displayTimeline()
+// document.addEventListener('DOMContentLoaded', displayTimeline())
 // Add parallax to body background
 // window.addEventListener('scroll', () => {
 //   const offset = window.pageYOffset
@@ -26,8 +26,8 @@ function signedBtnSet() {
 }
 
 function displayTimeline() {
-  newsfeed.sort((a, b) => b.date - a.date)
-  newsfeed.forEach(feed => {
+  newsfeed.sort((a: Newsfeed, b: Newsfeed) => b.date - a.date)
+  newsfeed.forEach((feed: any) => {
     main.appendChild(blogCardComponent(feed))
   })
 }
@@ -45,33 +45,16 @@ function registerUser() {
 }
 
 // Remove a blog from local storage
-function removeBlogFromDb(element) {
-  const index = newsfeed.findIndex(feed => feed.date === element)
+function removeBlogFromDb(element: any) {
+  const index = newsfeed.findIndex((feed: { date: any }) => feed.date === element)
   newsfeed.splice(index, 1)
   writeToLocalstorage('newsfeed', newsfeed)
-}
-
-function timeFormat(ms) {
-  const now = Date.now()
-  let date
-  if (now - ms < 60 * 1000) {
-    date = 'now'
-  } else if (now - ms < 10 * 60 * 1000) {
-    date = 'within 10 mins'
-  } else if (now - ms < 60 * 60 * 1000) {
-    date = 'an hour ago'
-  } else if (now - ms < 12 * 60 * 60 * 1000) {
-    date = 'today'
-  } else {
-    date = new Date(ms).toDateString()
-  }
-  return date
 }
 
 /*   COMPONENTS   */
 
 // Blog card component
-function blogCardComponent(feed) {
+function blogCardComponent(feed: { username: any; date: any; img: any; timeline: any }) {
   const card = document.createElement('div')
   card.className = 'card'
   card.innerHTML = `
@@ -87,7 +70,7 @@ function blogCardComponent(feed) {
   `
 
   // Delete icon of card element
-  const deleteBtn = card.querySelector('.delete-btn')
+  const deleteBtn = card.querySelector('.delete-btn')!
   deleteBtn.addEventListener('click', () => {
     // move card offscreen
     card.style.transform = 'translateX(-200%)'
@@ -100,7 +83,7 @@ function blogCardComponent(feed) {
 }
 
 // Insert and display a blog component
-function insertBlogComponent(user) {
+function insertBlogComponent(user: { username: any; password?: any }) {
   main.innerHTML = `
     <div class="heading">
       <h2>Welcome to your Dashboard, ${user.username.toUpperCase()}</h2>
@@ -115,19 +98,19 @@ function insertBlogComponent(user) {
     </div>
   `
   // Form elements variables
-  const blogForm = document.querySelector('.blog-form')
-  const submitBtn = document.querySelector('#submit-blog')
-  const imgUrl = document.querySelector('#img-url')
-  const blogText = document.querySelector('#blog-text')
-  const submitMsg = document.querySelector('.submit-msg')
+  const blogForm = document.querySelector('.blog-form') as HTMLDivElement
+  const submitBtn = document.querySelector('#submit-blog') as HTMLAnchorElement
+  const imgUrl = document.querySelector('#img-url') as HTMLInputElement
+  const blogText = document.querySelector('#blog-text') as HTMLTextAreaElement
+  const submitMsg = document.querySelector('.submit-msg') as HTMLSpanElement
 
   // Add blog
   submitBtn.addEventListener('click', () => {
     // Display error if blog is empty on submit
     if (!(blogText.value.length > 1)) {
-      return submitMsg.innerHTML = ' * Cannot submit an empty blog...'
+      return (submitMsg.innerHTML = ' * Cannot submit an empty blog...')
     }
-    
+
     // Clear error message
     submitMsg.innerHTML = ''
     // Create a new blog
@@ -146,8 +129,9 @@ function insertBlogComponent(user) {
     blogText.value = ''
 
     // Insert a new blog card
-    const card = blogCardComponent(newBlog)
-    card.querySelector('.delete-btn').style.display = 'flex'
+    const card = blogCardComponent(newBlog)!
+    const deleteBtn = card.querySelector('.delete-btn') as HTMLDivElement
+    deleteBtn.style.display = 'flex'
     blogForm.after(card)
   })
 }
@@ -168,26 +152,27 @@ function loginCardComponent() {
       <button class="button btn-glass">Login</button>
     </form> 
   `
-  const username = card.querySelector('#login-username')
-  const password = card.querySelector('#login-password')
-  const loginForm = card.querySelector('#login-form')
+  const username = card.querySelector('#login-username') as HTMLInputElement
+  const password = card.querySelector('#login-password') as HTMLInputElement
+  const loginForm = card.querySelector('#login-form') as HTMLFormElement
 
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener('submit', e => {
     e.preventDefault()
     login()
   })
 
   function login() {
-    const foundUser = users.find(user => username.value === user.username)
+    const foundUser = users.find((user: any) => username.value === user.username)
     if (foundUser && password.value === foundUser.password) {
       signedBtnSet()
       insertBlogComponent(foundUser)
-      newsfeed.sort((a, b) => b.date - a.date)    // sort blogs by date in descending order
+      newsfeed.sort((a: { date: number }, b: { date: number }) => b.date - a.date) // sort blogs by date in descending order
       // Add blog cards of a login user
-      newsfeed.forEach(feed => {
-        if (feed.username === foundUser.username){
+      newsfeed.forEach((feed: any) => {
+        if (feed.username === foundUser.username) {
           const card = blogCardComponent(feed)
-          card.querySelector('.delete-btn').style.display = 'flex'
+          const deleteBtn = card.querySelector('.delete-btn') as HTMLDivElement
+          deleteBtn.style.display = 'flex'
           main.appendChild(card)
         }
       })
@@ -215,17 +200,17 @@ function registerCardComponent() {
       <button class="button btn-glass">Register</button>
     </form>
   `
-  const username = card.querySelector('#reg-username')
-  const password = card.querySelector('#reg-password')
-  const regForm = card.querySelector('#reg-form')
+  const username = card.querySelector('#reg-username') as HTMLInputElement
+  const password = card.querySelector('#reg-password') as HTMLInputElement
+  const regForm = card.querySelector('#reg-form') as HTMLFormElement
 
-  regForm.addEventListener('submit', (e) => {
+  regForm.addEventListener('submit', e => {
     e.preventDefault()
     register()
   })
 
   function register() {
-    const foundUser = users.find(user => username.value === user.username)
+    const foundUser = users.find((user: any) => username.value === user.username)
     if (!foundUser) {
       // if username and password contain at least 3 chars, then create a user
       if (username.value.length > 2 && password.value.length > 2) {
@@ -237,7 +222,7 @@ function registerCardComponent() {
         // Add user to array to local storage
         users.push(newUser)
         writeToLocalstorage('users', users)
-  
+
         insertBlogComponent(newUser)
       } else {
         main.innerHTML = ``
@@ -247,7 +232,9 @@ function registerCardComponent() {
         </div>
         `
         // Back to main screen after n milliseconds
-        setTimeout(() => { window.location.href = "index.html"; }, 3000)
+        setTimeout(() => {
+          window.location.href = 'index.html'
+        }, 3000)
       }
     } else {
       main.innerHTML = `
@@ -255,19 +242,25 @@ function registerCardComponent() {
         <p class="warning">* Username already registered. Please proceed to Login page</p>
       </div>
       `
-      setTimeout(() => { window.location.href = "index.html"; }, 3000)
+      setTimeout(() => {
+        window.location.href = 'index.html'
+      }, 3000)
     }
   }
   return card
 }
 
-function footerComponent() {
+const footerComponent = () => {
   const footer = document.createElement('footer')
   footer.className = 'footer'
   footer.innerHTML = `
     <br><br><hr><br>
-    &copy; ${new Date().getFullYear()} MugPuke, Inc.
+    &copy; ${new Date().getFullYear()} MugBook, Inc.
     <br><br><br>
   `
   return footer
 }
+
+// Add footer
+const footer = footerComponent()
+body.appendChild(footer)
