@@ -15,3 +15,5 @@ npm start: tsc and nodemon, in 3 seconds runs browser-sync. All run in parallel 
 todo
 
 - remove interfaces folder from transpiling
+
+View the app [here](https://typescript-spa-auth-basic.herokuapp.com/)
