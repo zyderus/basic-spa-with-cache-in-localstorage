@@ -1,4 +1,3 @@
-import { usersInitial, newsfeedInitial } from './db.js';
 // Local Storage Utilities
 export const writeToLocalstorage = (name, list) => {
     localStorage.setItem(name, JSON.stringify(list));
@@ -7,18 +6,16 @@ export const readFromLocalstorage = (name) => {
     return JSON.parse(localStorage.getItem(name));
 };
 // Fetch data from Local Storage, fill with samples if empty
-export let fetchLocalData = (type, list) => {
+export const fetchLocalData = (type, list) => {
     const usersStored = readFromLocalstorage(type);
-    if (usersStored) {
-        return usersStored;
+    if (!usersStored) {
+        writeToLocalstorage(type, list);
+        return readFromLocalstorage(type);
     }
     else {
-        writeToLocalstorage(type, list);
         return usersStored;
     }
 };
-export let users = fetchLocalData('users', usersInitial);
-export let newsfeed = fetchLocalData('newsfeed', newsfeedInitial);
 export function timeFormat(ms) {
     const now = Date.now();
     let date;

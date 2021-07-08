@@ -1,5 +1,9 @@
 import { Newsfeed } from './modules/interfaces.js'
-import { newsfeed, users, writeToLocalstorage, timeFormat } from './modules/functions.js'
+import { writeToLocalstorage, timeFormat, fetchLocalData } from './modules/functions.js'
+import { usersInitial, newsfeedInitial } from './modules/db.js'
+
+let users = fetchLocalData('users', usersInitial)
+let newsfeed = fetchLocalData('newsfeed', newsfeedInitial)
 
 const body = document.querySelector('body') as HTMLBodyElement
 const main = document.querySelector('#main') as HTMLDivElement
@@ -8,7 +12,7 @@ const registerBtn = document.querySelector('#register-btn') as HTMLButtonElement
 const logoutBtn = document.querySelector('#logout-btn') as HTMLButtonElement
 
 /* Event Listeners */
-displayTimeline()
+const init = displayTimeline()
 // document.addEventListener('DOMContentLoaded', displayTimeline())
 // Add parallax to body background
 // window.addEventListener('scroll', () => {
@@ -26,10 +30,21 @@ function signedBtnSet() {
 }
 
 function displayTimeline() {
-  newsfeed.sort((a: Newsfeed, b: Newsfeed) => b.date - a.date)
-  newsfeed.forEach((feed: any) => {
-    main.appendChild(blogCardComponent(feed))
-  })
+  if (newsfeed) {
+    newsfeed.sort((a: Newsfeed, b: Newsfeed) => b.date - a.date)
+    newsfeed.forEach((feed: Newsfeed) => {
+      main.appendChild(blogCardComponent(feed))
+    })
+  } else {
+    const card = document.createElement('div') as HTMLDivElement
+    card.className = 'card'
+    card.innerHTML = `
+    <div class="content">
+      Loading...
+    </div>
+  `
+    main.appendChild(card)
+  }
 }
 
 function loginUser() {
@@ -54,7 +69,7 @@ function removeBlogFromDb(element: any) {
 /*   COMPONENTS   */
 
 // Blog card component
-function blogCardComponent(feed: { username: any; date: any; img: any; timeline: any }) {
+function blogCardComponent(feed: any) {
   const card = document.createElement('div')
   card.className = 'card'
   card.innerHTML = `

@@ -1,11 +1,14 @@
-import { newsfeed, users, writeToLocalstorage, timeFormat } from './modules/functions.js';
+import { writeToLocalstorage, timeFormat, fetchLocalData } from './modules/functions.js';
+import { usersInitial, newsfeedInitial } from './modules/db.js';
+let users = fetchLocalData('users', usersInitial);
+let newsfeed = fetchLocalData('newsfeed', newsfeedInitial);
 const body = document.querySelector('body');
 const main = document.querySelector('#main');
 const signinBtn = document.querySelector('#signin-btn');
 const registerBtn = document.querySelector('#register-btn');
 const logoutBtn = document.querySelector('#logout-btn');
 /* Event Listeners */
-displayTimeline();
+const init = displayTimeline();
 // document.addEventListener('DOMContentLoaded', displayTimeline())
 // Add parallax to body background
 // window.addEventListener('scroll', () => {
@@ -21,10 +24,22 @@ function signedBtnSet() {
     logoutBtn.style.display = 'block';
 }
 function displayTimeline() {
-    newsfeed.sort((a, b) => b.date - a.date);
-    newsfeed.forEach((feed) => {
-        main.appendChild(blogCardComponent(feed));
-    });
+    if (newsfeed) {
+        newsfeed.sort((a, b) => b.date - a.date);
+        newsfeed.forEach((feed) => {
+            main.appendChild(blogCardComponent(feed));
+        });
+    }
+    else {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+    <div class="content">
+      Loading...
+    </div>
+  `;
+        main.appendChild(card);
+    }
 }
 function loginUser() {
     main.innerHTML = '';
