@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "start": "run-p tsc nodemon browsersync",
+    "start": "ts-node server.ts",
+    "dev": "run-p tsc nodemon browsersync",
     "tsc": "tsc -w",
     "nodemon": "nodemon server.ts",
     "browsersync": "sleep 3 && browser-sync start --proxy 'localhost:3500' --files '**/*.css, **/*.html, **/*.js' --no-ui --reload-delay=200",

@@ -2,12 +2,12 @@ import express, { Request, Response } from 'express'
 import path from 'path'
 
 const server = express()
-const port: string | number = process.env.PORT || 3500
+const port: string | number = process.env.PORT || 5000
 
-server.use(express.static(path.join(__dirname, '/public')))
+// server.use(express.static(path.join(__dirname, '/public')))
 
 server.get('/', (req: Request, res: Response) => {
-  res.send('<h1>Testing Ninja</h1>')
+  res.send('<h1>Testing Ninja || Awesome result</h1>')
 })
 
 // server.get('/', (req: Request, res: Response) => {
