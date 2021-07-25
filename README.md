@@ -42,28 +42,20 @@ Express, Typescript
    ```sh
    npm build
    ```
-   
----
 
 ### Features
 Blog app with auth
 Uses local storage as a database for users and data  
 Psychedelic design  
 Frosted glass cards
-   
----
 
 ## Contributors
 
 - Rustam Ziyadov
 
----
-
 ## License & copyright
 
 &copy; Rustam Ziyadov
-
----
 
 
 
