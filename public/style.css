@@ -65,7 +65,7 @@ hr {
 
 header {
   background: rgb(132, 235, 255);
-  background: linear-gradient(38deg, rgba(132, 235, 255, 0.7) 0%, rgba(255, 122, 252, 0.8) 100%);
+  background: linear-gradient(38deg, rgba(132, 235, 255, 0.7) 0%, rgba(172, 120, 241, 0.8) 100%);
   position: fixed;
   top: 0;
   left: 0;
@@ -231,6 +231,7 @@ input {
 }
 
 .card-auth {
+  margin-top: 10rem;
   width: 320px;
   min-height: 300px;
   position: relative;
@@ -333,7 +334,7 @@ footer {
 
 @keyframes cardEnter {
   from {
-    transform: translateY(50vh);
+    transform: translateY(30vh);
     opacity: 0.1;
   }
   to {
