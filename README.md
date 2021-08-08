@@ -11,9 +11,9 @@
   
 </p>
 
-<!-- <div align="center">
-  <img src="https://github.com/zyderus/portfolio/blob/main/public/assets/images/tron.png" width="100%">
-</div> -->
+<div align="center">
+  <img src="https://github.com/zyderus/portfolio/blob/main/public/assets/images/mugbook.png" width="100%">
+</div>
 
 ## Description
 A simple blog app with local storage as database
