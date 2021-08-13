@@ -4,7 +4,7 @@
 </div>
 
 <p align="center">
-  🚀 View @ https://typescript-spa-auth-basic.herokuapp.com/ | hosted with <a href="https://id.heroku.com/">heroku</a>
+  🚀 View @ https://fervent-golick-3fb234.netlify.app/ | hosted with <a href="https://app.netlify.com">Netlify</a>
 </p>
 
 <p align="center">
